@@ -6,6 +6,7 @@ url='http://192.168.201.2:8080/shot.jpg'
 
 def generate():
     Id=0
+    eye_cascade=cv2.CascadeClassifier('C:\\Users\\Abhishek\\Anaconda3\\pkgs\\libopencv-3.4.1-h875b8b8_3\\Library\\etc\\haarcascades\\haarcascade_eye.xml')
     face_cascade =cv2.CascadeClassifier('C:\\Users\\Abhishek\\Anaconda3\\pkgs\\libopencv-3.4.1-h875b8b8_3\\Library\\etc\\haarcascades\\haarcascade_frontalface_default.xml')    
     print("Starting Creating Face Recognition dataset" )
     while(True):
@@ -22,10 +23,17 @@ def generate():
         faces=face_cascade.detectMultiScale(gray,1.3,5)
         
         for x,y,w,h in faces:
-            newImg=cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+            cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
             f=cv2.resize(gray[y:y+h,x:x+w],(200,200))
             Id=Id+1
             cv2.imwrite('C:\\Users\\Abhishek\\Local data\\'+str(Id)+'.jpg',f)
+            
+            roi_gray=gray[y:y+h,x:x+w]
+            
+            eyes=eye_cascade.detectMultiScale(roi_gray,1.1,3)
+            
+            for ex,ey,ew,eh in eyes:
+                cv2.rectangle(img[y:y+h,x:x+w],(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
         cv2.imshow("camera",img)
         if cv2.waitKey(int(1000/12)) & 0xff==ord("q"):
             break

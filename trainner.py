@@ -31,13 +31,13 @@ def getImageAndLabel(path):
         faces=face_cascade.detectMultiScale(img)
         
         for (x,y,w,h) in faces:
-            faceSamples.append(img[y:y+h,x:x+w])
+            faceSamples.append(cv2.resize(img[y:y+h,x:x+w],(200,200)))
             ids.append(id)
     return faceSamples, ids
 
 def train():
-    recognizer=cv2.face.LBPHFaceRecognizer_create()
-    faces,ids=getImageAndLabel("C://Users//Abhishek//Local data/")
+    recognizer=cv2.face.FisherFaceRecognizer_create()
+    faces,ids=getImageAndLabel("C://Users//Abhishek//face dataset/")
     recognizer.train(faces,np.array(ids))
     assurePath("C://Users//Abhishek//trainer//")
     recognizer.save("C://Users//Abhishek//trainer//trainer.yml")

@@ -19,9 +19,9 @@ def assurePath(path):
 
 def face_rec():
     
-    model=cv2.face.LBPHFaceRecognizer_create()
+    model=cv2.face.FisherFaceRecognizer_create()
     assurePath("C://Users//Abhishek//trainer//")
-    model.read("C://Users//Abhishek//trainer//trainer1.yml")
+    model.read("C://Users//Abhishek//trainer//trainer.yml")
     font =cv2.FONT_HERSHEY_SIMPLEX
     face_cascade =cv2.CascadeClassifier('C:\\Users\\Abhishek\\Anaconda3\\pkgs\\libopencv-3.4.1-h875b8b8_3\\Library\\etc\\haarcascades\\haarcascade_frontalface_default.xml')
     l=list()
@@ -39,7 +39,8 @@ def face_rec():
         
         for(x,y,w,h) in faces:
             cv2.rectangle(img,(x-20,y-20),(x+w+20,y+w+20),(0,255,0),2)
-            id,confidence = model.predict(gray[y:y+h,x:x+w])
+            roi=cv2.resize(gray[y:y+h,x:x+w],(200,200),interpolation=cv2.INTER_LINEAR)
+            id,confidence = model.predict(roi)
             l.append(id)
             cv2.rectangle(img,(x-22,y-90),(x+w+22,y-22),(0,255,0),-1)
             cv2.putText(img,str(id)+" : "+str(confidence),(x,y-40),font,1,(255,255,255),3)
