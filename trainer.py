@@ -18,7 +18,7 @@ def assurePath(path):
 def getImageAndLabel(path):
 
     face_cascade =cv2.CascadeClassifier('C:\\Users\\Abhishek\\Anaconda3\\pkgs\\libopencv-3.4.1-h875b8b8_3\\Library\\etc\\haarcascades\\haarcascade_frontalface_default.xml')
-    
+    assurePath(path)
     imagePaths = [os.path.join(path,f) for f in os.listdir(path)]
     faceSamples=[]
     ids=[]
@@ -35,12 +35,10 @@ def getImageAndLabel(path):
             ids.append(id)
     return faceSamples, ids
 
-def train():
+def train(year,course,branch,section):
     recognizer=cv2.face.FisherFaceRecognizer_create()
-    faces,ids=getImageAndLabel("C://Users//Abhishek//face dataset/")
+    path="C:\\Users\\Abhishek\\faceDataSet\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\"
+    faces,ids=getImageAndLabel(path)
     recognizer.train(faces,np.array(ids))
-    assurePath("C://Users//Abhishek//trainer//")
-    recognizer.save("C://Users//Abhishek//trainer//trainer.yml")
-
-if __name__=="__main__":
-    train()
+    assurePath("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\")
+    recognizer.save("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\trainer.yml")
