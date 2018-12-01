@@ -20,8 +20,9 @@ def assurePath(path):
 def face_rec(year,course,branch,section):
     
     model=cv2.face.FisherFaceRecognizer_create()
-    assurePath("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\")
-    model.read("C:\\Users\\Abhishek\\trainer\\trainer.yml")
+    path="C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\"
+    assurePath(path)
+    model.read(path+"trainer.yml")
     font =cv2.FONT_HERSHEY_SIMPLEX
     face_cascade =cv2.CascadeClassifier('C:\\Users\\Abhishek\\Anaconda3\\pkgs\\libopencv-3.4.1-h875b8b8_3\\Library\\etc\\haarcascades\\haarcascade_frontalface_default.xml')
     l=list()
