@@ -29,7 +29,7 @@ def generate():
             cv2.imwrite('C:\\Users\\Abhishek\\Local data\\'+str(Id)+'.jpg',f)
             
             roi_gray=gray[y:y+h,x:x+w]
-            
+    
             eyes=eye_cascade.detectMultiScale(roi_gray,1.1,3)
             
             for ex,ey,ew,eh in eyes:

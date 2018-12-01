@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec  1 13:18:41 2018
+
+@author: Abhishek
+"""
+
 from tkinter import *
-import faceRec
+import trainner
 
 
 def main_screen():
@@ -7,7 +14,7 @@ def main_screen():
     screen = Tk()
     screen.configure(background='floral white')
     screen.geometry("400x400")
-    screen.title("FRAT User")
+    screen.title("FRAT Training Model Creater")
     year = StringVar(screen)
     year.set("First")
     course = StringVar(screen)
@@ -16,7 +23,7 @@ def main_screen():
     branch.set("CSE")
     section = StringVar(screen)
     section.set("A")
-    Label(text = "Welcome to FRAT", bg = "peach puff", width = "300", height = "2", font = ("Calibri", 11), fg = "SeaGreen3").pack()
+    Label(text = "Welcome to FRAT Trainer", bg = "peach puff", width = "300", height = "2", font = ("Calibri", 11), fg = "SeaGreen3").pack()
     Label(text = "", bg = 'floral white').pack()
     Label(text = "Course", bg = 'floral white', font = ("Calibri", 10), fg = 'hot pink').pack()
     m = OptionMenu(screen, course, "B.Tech", "BBA", "BCA", "MBA", "Diploma")
@@ -38,7 +45,7 @@ def main_screen():
     b.configure(bg = 'SeaGreen1')
     b.pack()
     Label(text = "", bg = 'floral white').pack()
-    Button(text = "Start Scanning", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "30", command = faceRec.face_rec(str(year),str(course),str(branch),str(section)).pack())
+    Button(text = "Start Scanning", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "30", command = faceRec.face_rec(str(year.get()),str(course.get()),str(branch.get()),str(section.get())).pack())
     
     screen.mainloop()
 

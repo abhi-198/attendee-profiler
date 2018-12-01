@@ -17,11 +17,11 @@ def assurePath(path):
         os.makedirs(dir)
 
 
-def face_rec():
+def face_rec(year,course,branch,section):
     
     model=cv2.face.FisherFaceRecognizer_create()
-    assurePath("C://Users//Abhishek//trainer//")
-    model.read("C://Users//Abhishek//trainer//trainer.yml")
+    assurePath("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\")
+    model.read("C:\\Users\\Abhishek\\trainer\\trainer.yml")
     font =cv2.FONT_HERSHEY_SIMPLEX
     face_cascade =cv2.CascadeClassifier('C:\\Users\\Abhishek\\Anaconda3\\pkgs\\libopencv-3.4.1-h875b8b8_3\\Library\\etc\\haarcascades\\haarcascade_frontalface_default.xml')
     l=list()
