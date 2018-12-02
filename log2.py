@@ -7,7 +7,7 @@ def faculty(screen):
     screen.destroy()
     screen = Tk()
     screen.configure(background='floral white')
-    screen.geometry("400x400")
+    screen.geometry("400x500")
     screen.title("FRAT User")
     year = StringVar(screen)
     year.set("First")
@@ -78,7 +78,7 @@ def login(screen1):
     Label(screen1, text = "", bg = 'floral white').pack()
     Label(screen1, text = "Password * ", bg = 'floral white', fg = 'black', font = ('Times',12)).pack()
     
-    Entry(screen1, text = " ", textvariable=password).pack()
+    Entry(screen1, text = " ", textvariable=password,show="*").pack()
     
     Button(screen1, text = "Login", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "20", command =lambda : loginCheck(str(user.get()),str(password.get()),screen1)).place(bordermode=OUTSIDE, x=125, y=220)
    
