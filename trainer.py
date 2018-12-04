@@ -7,6 +7,7 @@ Created on Tue Nov 27 19:21:45 2018
 
 import cv2
 import os
+from tkinter import messagebox
 from PIL import Image
 import numpy as np
 
@@ -39,10 +40,15 @@ def getImageAndLabel(path):
     return faceSamples, ids
 
 def train(year,course,branch,section):
-    recognizer=cv2.face.FisherFaceRecognizer_create()
-    path="C:\\Users\\Abhishek\\faceDataSet\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\"
-    faces,ids=getImageAndLabel(path)
-    recognizer.train(faces,np.array(ids))
-    assurePath("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\")
-    recognizer.save("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\trainer.yml")
+    try:
+        recognizer=cv2.face.FisherFaceRecognizer_create()
+        path="C:\\Users\\Abhishek\\faceDataSet\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\"
+        faces,ids=getImageAndLabel(path)
+        recognizer.train(faces,np.array(ids))
+        assurePath("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\")
+        recognizer.save("C:\\Users\\Abhishek\\trainer\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\trainer.yml")
+        messagebox.showinfo("Training model","Training model created Successfully")
+        
+    except Exception as e:
+        messagebox.showerror("Training model",e)
     
