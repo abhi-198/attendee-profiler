@@ -18,7 +18,7 @@ while True:
         print(x,y,w,h)
     
         cv2.imshow('frame',frame)
-    if cv2.waitKey(20):
+    if cv2.waitKey(20) & 0xFF == ord('q') or count==150:
         break
 
 cap.release()
