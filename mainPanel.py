@@ -6,6 +6,7 @@ Created on Mon Dec  3 10:44:17 2018
 """
 
 import tkinter as tk
+from tkinter import messagebox
 import mysql.connector
 import trainer
 
@@ -21,20 +22,20 @@ def createID(name,user,password,new_password,screen):
                 db.commit()
                 
                 if mycursor.rowcount==1:
-                    tk.messagebox.showinfo("Insert","Faculty added successfully...")
+                    messagebox.showinfo("Insert","Faculty added successfully...")
                     add_faculty(screen)
                 else:
-                    tk.messagebox.showerror("LOGIN","User ID and Password is Incorrect...")
+                    messagebox.showerror("LOGIN","User ID and Password is Incorrect...")
                     add_faculty(screen)
             else:
-                 tk.messagebox("warning","Password mismatch...")
+                 messagebox("warning","Password mismatch...")
                  return
         except mysql.connector.Error as error:
-            tk.messagebox.showerror("Insert Error",error)
+            messagebox.showerror("Insert Error",error)
             add_faculty(screen)
             
     else: 
-        tk.messagebox.showwarning("LOGIN","User ID and Password Required...")
+        messagebox.showwarning("LOGIN","User ID and Password Required...")
         add_faculty(screen) 
     
 
@@ -49,20 +50,20 @@ def deleteID(name,user,password,new_password,screen):
                 db.commit()
                 
                 if mycursor.rowcount==1:
-                    tk.messagebox.showinfo("Insert","Faculty deleted successfully...")
+                    messagebox.showinfo("Insert","Faculty deleted successfully...")
                     add_faculty(screen)
                 else:
-                    tk.messagebox.showerror("LOGIN","User ID and Password is Incorrect...")
+                    messagebox.showerror("LOGIN","User ID and Password is Incorrect...")
                     add_faculty(screen)
             else:
-                 tk.messagebox("warning","Password mismatch...")
+                 messagebox("warning","Password mismatch...")
                  return
         except mysql.connector.Error as error:
-            tk.messagebox.showerror("Delete Error",error)
+            messagebox.showerror("Delete Error",error)
             add_faculty(screen)
             
     else: 
-        tk.messagebox.showwarning("LOGIN","User ID and Password Required...")
+        messagebox.showwarning("LOGIN","User ID and Password Required...")
         add_faculty(screen) 
     
     
@@ -140,7 +141,9 @@ def trainerPage(screen):
     b.pack()
     tk.Label(text = "", bg = 'floral white').pack()
     tk.Button(text = "Create training model", fg = "dark violet", font=("Times","12","bold"), bg = "plum1", height = "2", width = "30", command = lambda : trainer.train(str(year.get()),str(course.get()),str(branch.get()),str(section.get()))).pack()
-    
+    tk.Label(text="",bg='floral white').pack()
+    tk.Button(screen, text = "Home Panel", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "20", command = lambda: panel(screen.destroy())).pack()
+   
     
 def panel(screen=None):
     screen = tk.Tk()
@@ -149,9 +152,9 @@ def panel(screen=None):
     screen.title("FRAS Menu")
     tk.Label(text = "Welcome to FRAS Admin Menu", bg = "peach puff", width = "300", height = "2", font = ("Times", 16,"bold"), fg = "dodgerblue").pack()
     tk.Label(text = "", bg = 'floral white').pack()
-    
     tk.Button(text = "Create training model", fg = "dark violet", font=("Times","12","bold"), bg = "plum1", height = "2", width = "30", command = lambda : trainerPage(screen)).pack()
-    tk.Label(width="20",height="2").pack()
+    tk.Label(text="",bg="floral white").pack()
+    
     tk.Button(text = "Add faculty", fg = "dark violet", font=("Times","12","bold"), bg = "plum1", height = "2", width = "30", command = lambda : add_faculty(screen)).pack()
     
     screen.mainloop()
