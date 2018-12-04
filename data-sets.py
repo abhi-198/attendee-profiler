@@ -13,3 +13,6 @@ count=0
 while True:
     ret, frame = cap.read() 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+    for (x,y,w,h) in faces:
+        print(x,y,w,h)
