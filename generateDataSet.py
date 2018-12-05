@@ -39,7 +39,7 @@ def generate():
             break
         
     cv2.destroyAllWindows()
-    print("Dataset is created successfully and saved at C:\\Users\\Abhishek\\face dataset")
-
+    print("Dataset is created successfully and saved at C:\\Users\\Abhishek\\local data")
+    
 if __name__=="__main__":
     generate()
