@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 import faceRec
 
+
 def faculty(screen):
     screen.destroy()
     screen = tk.Tk()
@@ -39,7 +40,7 @@ def faculty(screen):
     b.configure(bg = 'SeaGreen1')
     b.pack()
     tk.Label(text = "", bg = 'floral white').pack()
-    tk.Button(master=screen, text = "Start Scanning", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "30", command = lambda : faceRec.face_rec(str(year.get()),str(course.get()),str(branch.get()),str(section.get()))).pack()
+    tk.Button(master=screen, text = "Start Scanning", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "30", command = lambda : faceRec.face_rec(str(year.get()),str(course.get()),str(branch.get()),str(section.get()),screen.destroy())).pack()
     
     tk.Label(text=" ",bg = 'floral white').pack()
     tk.Button(master=screen, text = "Logout", fg = "red", bg = "SeaGreen1", height = "1", width = "10", command = lambda : mainScreen(screen.destroy())).pack()
