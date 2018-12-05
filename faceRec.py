@@ -32,7 +32,7 @@ def save(newvar,screen=None):
         mycursor.execute(query)
         mydb.commit()
     mycursor.close()
-        
+    messagebox.showinfo("FRAS Attendace","Attendance is uploaded successfully")
     
 def assurePath(path):
     dir=os.path.dirname(path)
@@ -85,8 +85,8 @@ def attendanceSheet(present):
         result=mycursor.fetchall()
     
     for x,y in result:
-        var2[y]=tk.IntVar(value=0)
         if int(y) not in present:
+            var2[y]=tk.IntVar(value=0)
             absent.add(y)
             name[y]=x
     
