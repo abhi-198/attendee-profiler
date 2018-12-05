@@ -9,6 +9,10 @@ import tkinter as tk
 from tkinter import messagebox
 import mysql.connector
 import trainer
+import generateDataSet
+
+def createDataSet(screen=None):
+    generateDataSet.generate()
 
 def createID(name,user,password,new_password,screen):
     if user!="" and password!="" and name!="":
@@ -154,8 +158,10 @@ def panel(screen=None):
     tk.Label(text = "", bg = 'floral white').pack()
     tk.Button(text = "Create training model", fg = "dark violet", font=("Times","12","bold"), bg = "plum1", height = "2", width = "30", command = lambda : trainerPage(screen)).pack()
     tk.Label(text="",bg="floral white").pack()
-    
+    tk.Button(text = "Create DataSet", fg = "dark violet", font=("Times","12","bold"), bg = "plum1", height = "2", width = "30", command = lambda :createDataSet(screen.destroy)).pack()
+    tk.Label(text="",bg="floral white").pack()
     tk.Button(text = "Add faculty", fg = "dark violet", font=("Times","12","bold"), bg = "plum1", height = "2", width = "30", command = lambda : add_faculty(screen)).pack()
+    
     
     screen.mainloop()
     
