@@ -41,7 +41,7 @@ def getImageAndLabel(path):
 
 def train(year,course,branch,section):
     try:
-        recognizer=cv2.face.FisherFaceRecognizer_create()
+        recognizer=cv2.face.LBPHFaceRecognizer_create()
         path="C:\\Users\\Abhishek\\faceDataSet\\"+course+"\\"+branch+"\\"+year+"\\"+section+"\\"
         faces,ids=getImageAndLabel(path)
         recognizer.train(faces,np.array(ids))
