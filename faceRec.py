@@ -11,9 +11,29 @@ import tkinter as tk
 from tkinter import messagebox
 import numpy as np
 import mysql.connector
+import datetime
 
 url='http://192.168.201.2:8080/shot.jpg'
 
+def save(newvar,screen=None):
+    mydb = mysql.connector.connect(host="localhost",user="root",passwd="root",database="fras")
+    mycursor= mydb.cursor()
+    
+    tod=datetime.date.today()
+    query= "insert into attendance (date) values('"+str(tod)+"');"
+    mycursor.execute(query)
+    mydb.commit()
+    
+    for x,y in newvar.items():
+        if str(y.get())=='1':
+            query="update attendance set _"+str(x)+" ='P' where date like '"+str(tod)+"';"
+        else:
+            query="update attendance set _"+str(x)+" ='A' where date like '"+str(tod)+"';"
+        mycursor.execute(query)
+        mydb.commit()
+    mycursor.close()
+        
+    
 def assurePath(path):
     dir=os.path.dirname(path)
     if not os.path.exists(path):
@@ -42,11 +62,8 @@ def attendanceSheet(present):
     for x in present:
         var[x]=tk.IntVar(value=1)
         query="select name from student where sid like '"+str(x)+"';"
-        result=mycursor.execute(query)
-        if (mycursor.rowcount<2):
-            result=mycursor.fetchone()
-        else:
-            result=mycursor.fetchall()
+        mycursor.execute(query)
+        result=mycursor.fetchone()
         
         for n in result:
             name[x]=n
@@ -61,23 +78,26 @@ def attendanceSheet(present):
     name=dict()
     var2 = dict()
     query="select name , sid from student;"
-    result=mycursor.execute(query)
-    if (mycursor.rowcount<2):
+    mycursor.execute(query)
+    if (mycursor.rowcount==1):
         result=mycursor.fetchone()
     else:
         result=mycursor.fetchall()
-        
+    
     for x,y in result:
         var2[y]=tk.IntVar(value=0)
-        if str(y) not in present:
+        if int(y) not in present:
             absent.add(y)
             name[y]=x
-    print(present,absent)
+    
     inc =30
     for x in absent:        
         tk.Checkbutton(screen, text=str(x) + "  "+str(name[x]), variable=var2[x], bg = 'floral white').place(x = 580, y = 120+inc)
         inc+=25
     
+    tk.Label(text="",bg='floral white').pack()
+    tk.Button(screen, text = "Save Attendance", fg = "dark violet", bg = "SeaGreen1", height = "2", width = "20", command = lambda: save({**var, **var2} ,screen.destroy())).pack()
+
     screen.mainloop()
 
 
