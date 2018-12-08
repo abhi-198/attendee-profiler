@@ -7,8 +7,10 @@ This project is divided into Two major part:
 
 Facial Attendence is further is divided into two subpart:
 1. Face Detection (using Haar cascade classifier)
-2. Face reognition (using any one Eigenface, fisherface or LBPH algorithms)
+2. Face reognition (using LBPH algorithms)
+
+We are using LBPH algrithm beacuse this algorithm work without geting effected with light intensity in image.
 
 Online Attendence Marking is divided into two subpart:
-1. Client-Server based Face recognition using web api
-2. Database Management of Attendance
+1. Face recognition storing the detected student using GUI
+2. Using Database (MySQL) for storing the Attendance
