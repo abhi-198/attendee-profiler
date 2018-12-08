@@ -4,8 +4,8 @@ from tkinter import messagebox
 import faceRec
 
 
-def faculty(screen):
-    screen.destroy()
+def faculty(screen,name):
+    
     screen = tk.Tk()
     screen.configure(background='floral white')
     screen.geometry("400x500")
@@ -18,8 +18,10 @@ def faculty(screen):
     branch.set("CSE")
     section = tk.StringVar(screen)
     section.set("A")
-    tk.Label(text = "Welcome to FRAT", bg = "peach puff", width = "300", height = "2", font = ("Times", 16), fg = "SeaGreen3").pack()
-    tk.Label(text = "", bg = 'floral white').pack()
+    tk.Label(text = "Welcome to FRAS", bg = "peach puff", width = "300", height = "2", font = ("Times", 16), fg = "SeaGreen3").pack()
+    
+    tk.Label(text = "Lecturer : "+str(name), bg = "floral white", width = "300", height = "2", font = ("Times", 12,"bold"), fg = "green").pack()
+
     tk.Label(text = "Course", bg = 'floral white', font = ("Times", 10), fg = 'hot pink').pack()
     m = tk.OptionMenu(screen, course, "B.Tech", "BBA", "BCA", "MBA", "Diploma")
     m.configure(bg = 'SeaGreen1')
@@ -50,16 +52,16 @@ def loginCheck(user,password,screen):
     if user!="" and password!="":
         mydb = mysql.connector.connect(host="localhost",user="root",passwd="root",database="fras")
         mycursor= mydb.cursor()
-        query="select * from access where userid like '"+user+"' and password like '"+password+"';"
+        query="select faculty from access where userid like '"+user+"' and password like '"+password+"';"
         mycursor.execute(query)
-        result=mycursor.fetchall()
-        if result!=[]:
-            faculty(screen)
+        result=mycursor.fetchone()
+        if mycursor.rowcount==1:
+            faculty(screen.destroy(),result[0])
         else:
-            messagebox.showerror("LOGIN","User ID and Password is Incorrect...")
+            messagebox.showerror("LOGIN","User ID or Password is Incorrect...")
             login(screen)
     else:
-        messagebox.showwarning("LOGIN","User ID and Password Required...")
+        messagebox.showwarning("LOGIN","User ID or Password Required...")
         login(screen)
 
 
@@ -71,7 +73,7 @@ def login(screen1):
     screen1.geometry("400x400")
     screen1.title("FRAT Login")
         
-    tk.Label(screen1, text = "FRAT Login Welcomes you", bg = "peach puff", width = "300", height = "2", font = ("Times", 14), fg = "SeaGreen3").pack()
+    tk.Label(screen1, text = "FRAS Login Welcomes you", bg = "peach puff", width = "300", height = "2", font = ("Times", 14), fg = "SeaGreen3").pack()
     tk.Label(screen1, text = "", bg = 'floral white').pack()
     tk.Label(screen1, text = "Username * ", bg = 'floral white', fg = 'black', font = ('Times',12)).pack()
         
@@ -92,11 +94,10 @@ def mainScreen(screen=None):
     screen = tk.Tk()
     screen.configure(background='floral white')
     screen.geometry("400x200")
-    screen.title("FRAT Login")
-    tk.Label(text = "FRAT Login", bg = "peach puff", width = "300", height = "2", font = ("Times","14","bold"), fg = "SeaGreen3").pack()
+    screen.title("FRAS Login")
+    tk.Label(text = "FRAS Login", bg = "peach puff", width = "300", height = "2", font = ("Times","14","bold"), fg = "SeaGreen3").pack()
     tk.Label(text = "", bg = 'floral white').pack()
     tk.Button(text = "Login", fg = "black", bg = "SeaGreen1",font=("Times","10") ,height = "2", width = "30", command = lambda: login(screen)).place(bordermode=tk.OUTSIDE, x=90, y=100)
-   
     
 
     screen.mainloop()
